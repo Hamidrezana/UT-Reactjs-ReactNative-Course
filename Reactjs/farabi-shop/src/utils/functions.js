@@ -1,0 +1,1 @@
+export const addToman = (price) => `${price} تومان`

@@ -1,0 +1,54 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url('../assets/Vazir.ttf');
+}
+@font-face {
+    font-family: 'Shabnam';
+    src: url('../assets/Shabnam-FD.woff');
+}
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+    direction: rtl;
+    text-align: right;
+    font-family: Shabnam;
+}
+.card-img-top {
+    height: 300px;
+}
+.sticky-position {
+    position: sticky;
+    top: 100px;
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.count-span {
+    text-align: center !important;
+}
+
+.cart-count {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    color: white;
+    background: blueviolet;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-range {
+    direction: ltr !important;
+}
+
+.mc {
+    margin-top: 4.5rem !important;
+}
