@@ -1,10 +1,61 @@
 import React from 'react'
-import Items from '../utils/Items'
+// import Items from '../utils/Items'
 import CardItem from '../components/CardItem'
 import Filter from '../components/home/Filter'
 import Cart from '../components/home/Cart'
+import { connect } from 'react-redux'
 
-function HomePage() {
+const mapStateToProps = state => {
+    const { items, searchText, minPrice, maxPrice } = state.Items
+    let filteredItems = items;
+    // Better way to filter items
+    const filters = {
+        price: price => (
+            (
+                (!minPrice) || 
+                (price >= minPrice)
+            ) && 
+            (
+                (!maxPrice) || 
+                (price <= maxPrice)
+            )
+        ),
+        name: name => (name.includes(searchText))
+    }
+    if (minPrice || maxPrice || searchText)
+        filteredItems = items.map(item => {
+            const newItems = item.items.filter(innerItem => Object.keys(filters).every(key => filters[key](innerItem[key])))
+            return {
+                ...item,
+                items: newItems
+            }
+
+        })
+
+    // Filter method coded in class
+
+    // let filteredItems = items.map(item => {
+    //     const newItems = item.items.filter(
+    //         innerItem => innerItem.name.includes(searchText))
+    //     return {
+    //         ...item,
+    //         items: newItems
+    //     }
+    // })
+    // filteredItems = items.map(item => {
+    //     const newItems = item.items.filter(
+    //         innerItem => ( !minPrice || innerItem.price >= minPrice ) && ( !maxPrice || innerItem.price <= maxPrice ))
+    //     return {
+    //         ...item,
+    //         items: newItems
+    //     }
+    // })
+    return {
+        items: filteredItems
+    }
+}
+
+function HomePage(props) {
     return (
         <div className="container-fluid">
             <div className="row">
@@ -13,7 +64,9 @@ function HomePage() {
                 </div>
                 <div className="col-lg-6 col-12">
                     {
-                        Items.map((catagory, idx) => 
+                        props.items.map((catagory, idx) => 
+                            catagory.items.length === 0 ?
+                            null :
                             <div key={idx} className='row mt-4'>
                                 <div className='col-12 my-2'>
                                     <h2>{catagory.title}</h2>
@@ -37,4 +90,4 @@ function HomePage() {
     )
 }
 
-export default HomePage
+export default connect(mapStateToProps)(HomePage)
