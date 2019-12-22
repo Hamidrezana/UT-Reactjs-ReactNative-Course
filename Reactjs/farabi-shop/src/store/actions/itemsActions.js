@@ -20,3 +20,10 @@ export function changeMaxPrice(payload) {
         payload
     }
 }
+
+export function changeCategory(payload) {
+    return {
+        type: actionsTypes.CHANGE_CATEGORY,
+        payload
+    }
+}

@@ -5,6 +5,13 @@ const INITIAL_STATE = {
     searchText: '',
     minPrice: null,
     maxPrice: null,
+    category: {
+        hats: null,
+        sneakers: null,
+        jackets: null,
+        men: null,
+        women: null
+    }
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,6 +31,13 @@ export default (state = INITIAL_STATE, action) => {
         case actionsTypes.CHANGE_MAX_PRICE:
             return Object.assign({}, state, {
                 maxPrice: action.payload
+            })
+        case actionsTypes.CHANGE_CATEGORY:
+            return Object.assign({}, state, {
+                category: {
+                    ...state.category,
+                    [action.payload.name]: action.payload.value
+                }
             })
         default:
             return state

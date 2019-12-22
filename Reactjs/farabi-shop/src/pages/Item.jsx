@@ -4,6 +4,7 @@ import Items from '../utils/Items'
 import { addToman } from '../utils/functions'
 import Strings from '../utils/Strings'
 import CardItem from '../components/CardItem'
+import AddToCartBtn from '../components/AddToCartBtn'
 
 const random = (max) => Math.floor(Math.random() * max) + 0
 
@@ -22,7 +23,7 @@ function ItemPage() {
                 <div className="col-md-8 col-12">
                     <p>{item.name}</p>
                     <p>{addToman(item.price)}</p>
-                    <button className="btn btn-primary">{Strings.addToCart}</button>
+                    <AddToCartBtn item={item} />
                 </div>
             </div>
             <div className="row my-2">

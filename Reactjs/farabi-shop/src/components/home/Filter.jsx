@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Strings from '../../utils/Strings'
 import { addToman } from '../../utils/functions'
 import { connect } from 'react-redux'
-import { changeMinPrice, changeMaxPrice  } from '../../store/actions/itemsActions'
+import { changeMinPrice, changeMaxPrice, changeCategory  } from '../../store/actions/itemsActions'
 
 
 const mapStateToProps = state => {
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 }
 
 
-const mapDispatchToProps = { changeMinPrice, changeMaxPrice }
+const mapDispatchToProps = { changeMinPrice, changeMaxPrice, changeCategory }
 
 const Range = (props) => {
     const initialState = props.name === 'fromPrice' ? 1400 : 32500
@@ -73,13 +73,24 @@ function Filter(props) {
             props.changeMinPrice(value)
         }
     }
+
+    const changeFilter = (e) => {
+        const { checked, name } = e.target
+        props.changeCategory({name, value: checked ? true : null})
+
+    }
     return (
         <div className="sticky-position">
             <h5>{Strings.filter}</h5>
             {
                 filters.map(({name, id}) =>
                     <div key={id} className="form-check">
-                        <input name={name} className="form-check-input" type="checkbox" id={name} />
+                        <input
+                            onChange={(e) => changeFilter(e)}
+                            name={name}
+                            className="form-check-input"
+                            type="checkbox" id={name}
+                        />
                         <label className="form-check-label mr-4" htmlFor={name}>
                             {Strings.filters[name]}
                         </label>

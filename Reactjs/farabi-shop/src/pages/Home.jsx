@@ -4,10 +4,20 @@ import CardItem from '../components/CardItem'
 import Filter from '../components/home/Filter'
 import Cart from '../components/home/Cart'
 import { connect } from 'react-redux'
+import { checkCategory } from '../utils/functions'
 
 const mapStateToProps = state => {
-    const { items, searchText, minPrice, maxPrice } = state.Items
-    let filteredItems = items;
+    const { items, searchText, minPrice, maxPrice, category } = state.Items
+    const checkFilter = checkCategory(category)
+    let filteredItems = items
+    if(checkFilter)
+        filteredItems = items.filter(item => 
+                (category.hats && item.id === 1) ||
+                (category.sneakers && item.id === 2) ||
+                (category.jackets && item.id === 3) ||
+                (category.women && item.id === 4) ||
+                (category.men && item.id === 5)
+            )
     // Better way to filter items
     const filters = {
         price: price => (
